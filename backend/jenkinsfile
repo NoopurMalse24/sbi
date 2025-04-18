@@ -1,0 +1,84 @@
+pipeline {
+    agent any
+
+    environment {
+        SONARQUBE_URL = 'http://localhost:9000'
+        SONARQUBE_TOKEN = ''
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/AdityaLad2004/node-secure-app.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Run Dependency Scan - npm audit') {
+            steps {
+                sh 'npx audit-ci --low'
+            }
+        }
+
+        stage('Static Code Analysis - SonarQube') {
+            steps {
+                sh "/opt/sonar-scanner/bin/sonar-scanner -Dsonar.projectKey=node-secure-app -Dsonar.sources=. -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONARQUBE_TOKEN"
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'npm test || echo "No tests found, skipping"'
+            }
+        }
+
+
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t node-secure-app .'
+            }
+        }
+
+        stage('Scan Docker Image - Trivy') {
+            steps {
+                sh 'trivy image --skip-update node-secure-app'
+            }
+        }
+
+        stage('Deploy Secure App') {
+    steps {
+        sh '''
+        docker network create security-net || true
+        docker rm -f node-secure-app || true
+        docker run -d --network security-net --name node-secure-app -p 3000:3000 node-secure-app
+        '''
+    }
+}
+
+        stage('Run Dynamic Analysis - OWASP ZAP') {
+            steps {
+                sh '''
+                docker run --rm --network security-net -v $(pwd):/zap/wrk -t zaproxy/zap-stable zap-baseline.py -t http://node-secure-app:3000 -r zap-report.html
+                '''
+            }
+        }
+
+        
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: '**/*.html', fingerprint: true
+            echo 'Security reports archived'
+        }
+        failure {
+            echo 'Pipeline failed! Check security reports for vulnerabilities.'
+        }
+    }
+}

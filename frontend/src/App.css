@@ -1,0 +1,160 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+ */
+
+
+ #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* --- Updated Styling for Error Display --- */
+
+.error-container {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  text-align: left;
+}
+
+.error-box {
+  border-left: 5px solid;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.error-box:hover {
+  transform: scale(1.02);
+}
+
+/* Severity-based color coding */
+.error-severity-high {
+  border-color: #e63946;
+  background: rgba(230, 57, 70, 0.1);
+}
+
+.error-severity-medium {
+  border-color: #ffb703;
+  background: rgba(255, 183, 3, 0.1);
+}
+
+.error-severity-low {
+  border-color: #2a9d8f;
+  background: rgba(42, 157, 143, 0.1);
+}
+
+.error-text {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.severity-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.severity-high {
+  color: #e63946;
+}
+
+.severity-medium {
+  color: #ffb703;
+}
+
+.severity-low {
+  color: #2a9d8f;
+}
+
+.solution-text {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  color: #333;
+}
